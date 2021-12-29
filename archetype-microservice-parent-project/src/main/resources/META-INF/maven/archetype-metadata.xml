@@ -5,6 +5,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	name="${artifactId}">
 
+	<requiredProperties>
+		<!--Spring Boot version to use in generated project -->
+		<requiredProperty key="spring-boot-version">
+			<defaultValue>2.6.2</defaultValue>
+		</requiredProperty>
+		<!--Spring Boot version to use in generated project -->
+		<requiredProperty key="java-version">
+			<defaultValue>17</defaultValue>
+		</requiredProperty>
+	</requiredProperties>
 
 	<fileSets>
 		<fileSet filtered="true" encoding="UTF-8">
