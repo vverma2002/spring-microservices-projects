@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<archetype-descriptor
+	xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
+	xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="${artifactId}" partial="false">
+
+	<requiredProperties>
+		<requiredProperty key="service-alias">
+			<defaultValue>User</defaultValue>
+			<validationRegex>^([A-Z][a-z0-9]+)+</validationRegex>
+		</requiredProperty>
+		<requiredProperty key="resource-alias">
+			<defaultValue>user</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="server-port">
+			<defaultValue>8080</defaultValue>
+		</requiredProperty>
+	</requiredProperties>
+
+
+	<modules>
+		<module id="${rootArtifactId}-library"
+			dir="__rootArtifactId__-library" name="${rootArtifactId}-library">
+			<fileSets>
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/main/java</directory>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</fileSet>
+			</fileSets>
+		</module>
+
+		<module id="${rootArtifactId}-server"
+			dir="__rootArtifactId__-server" name="${rootArtifactId}-server">
+			<fileSets>
+			
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/main/java</directory>
+				</fileSet>
+				
+				<fileSet filtered="true" packaged="false" encoding="UTF-8">
+					<directory>src/main/resources</directory>
+					<includes>
+						<include>*.txt</include>
+						<include>*.properties</include>
+					</includes>
+					<excludes>
+					 	<exclude>**/*.xml</exclude>
+					</excludes>
+				</fileSet>
+				
+				<fileSet filtered="false" packaged="false" encoding="UTF-8">
+					<directory>src/main/resources</directory>
+					<includes>
+						<include>*.xml</include>
+					</includes>
+				</fileSet>
+				
+				<fileSet filtered="true" packaged="true" encoding="UTF-8">
+					<directory>src/test/java</directory>
+				</fileSet>
+				
+				<fileSet filtered="true" packaged="false" encoding="UTF-8">
+					<directory>src/test/resources</directory>
+					<includes>
+						<include>*.txt</include>
+						<include>*.properties</include>
+						<include>*.xml</include>
+					</includes>
+				</fileSet>
+				
+				<fileSet filtered="true" packaged="false" encoding="UTF-8">
+					<directory>src/main/resources/static</directory>
+				</fileSet>
+				
+				<fileSet filtered="true" packaged="false" encoding="UTF-8">
+					<directory>src/main/resources/templates</directory>
+				</fileSet>
+
+				<fileSet filtered="true" packaged="false" encoding="UTF-8">
+					<directory></directory>
+					<includes>
+						<!-- <include>.gitignore</include> <include>README.md</include> -->
+						<include>Dockerfile</include>
+						<!-- <include>server.xml</include> -->
+						<include>buildAndRun.sh</include>
+						<include>buildAndRun.bat</include>
+					</includes>
+				</fileSet>
+
+			</fileSets>
+
+		</module>
+
+	</modules>
+</archetype-descriptor>
