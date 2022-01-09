@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ${package}.entity.${service-alias}Entity;
 
-@SpringBootTest
+@SpringBootTest(properties="spring.main.lazy-initialization=true")
 @AutoConfigureMockMvc
 //@ActiveProfiles("itg-test") 
 //@PropertySource("classpath:application-itg-test.properties")

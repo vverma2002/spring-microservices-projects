@@ -22,7 +22,25 @@
 
 	<profiles>
 		<profile>
+			<id>no-tests</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+		<profile>
 			<id>dev</id>
+			<properties>
+				<spring.profile.from.maven>dev</spring.profile.from.maven>
+				<database.platform.from.maven>org.hibernate.dialect.H2Dialect</database.platform.from.maven>
+				<!-- <datasource.url.from.maven>jdbc:h2:mem:sampleDb;INIT=RUNSCRIPT FROM 'classpath:scripts/create.sql'</datasource.url.from.maven> -->
+				<!-- <datasource.url.from.maven>jdbc:h2:mem:datasource;MODE=Oracle;INIT=runscript from 'classpath:/sql/h2.creation.sql'</datasource.url.from.maven> -->
+				<datasource.url.from.maven>jdbc:h2:file:./h2/userH2Db;MODE=PostgreSQL;DB_CLOSE_DELAY=-1</datasource.url.from.maven>
+				<datasource.username.from.maven>sa</datasource.username.from.maven>
+				<datasource.password.from.maven></datasource.password.from.maven>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>io.springfox</groupId>
@@ -46,10 +64,25 @@
 					<optional>true</optional>
 				</dependency>
 			</dependencies>
+			<build>
+				<finalName>user-service-dev</finalName>
+			</build>
 		</profile>
 		<profile>
-			<id>release</id>
+			<id>prod</id>
+			<properties>
+				<spring.profile.from.maven>prod</spring.profile.from.maven>
+				<database.platform.from.maven>org.hibernate.dialect.PostgreSQL10Dialect</database.platform.from.maven>
+				<datasource.url.from.maven>jdbc:postgresql://192.168.1.72:5432/postgres</datasource.url.from.maven>
+				<datasource.username.from.maven>postgres</datasource.username.from.maven>
+				<datasource.password.from.maven>postgres</datasource.password.from.maven>
+			</properties>
 			<dependencies>
+				<dependency>
+					<groupId>org.postgresql</groupId>
+					<artifactId>postgresql</artifactId>
+					<scope>runtime</scope>
+				</dependency>
 				<dependency>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-actuator</artifactId>
@@ -58,8 +91,11 @@
 					<groupId>io.micrometer</groupId>
 					<artifactId>micrometer-registry-prometheus</artifactId>
 					<scope>runtime</scope>
-				</dependency>
+				</dependency>				
 			</dependencies>
+			<build>
+				<finalName>user-service-prod</finalName>
+			</build>
 		</profile>
 	</profiles>
 
