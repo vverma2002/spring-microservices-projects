@@ -1,4 +1,4 @@
-package com.os.user.aspect;
+package ${package}.aspect;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,9 +28,9 @@ public class ServiceLogging {
 	@Autowired
 	private ObjectMapper mapper;
 
-//    @Pointcut("within(com.os.user.controller..*) " +
+//    @Pointcut("within(${package}.controller..*) " +
 	// "&& @annotation(org.springframework.web.bind.annotation.RequestMapping)")
-	@Pointcut("within(com.os.user.service..*)")
+	@Pointcut("within(${package}.service..*)")
 	public void pointcut() {
 	}
 

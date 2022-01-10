@@ -1,4 +1,4 @@
-package com.os.user.aspect;
+package ${package}.aspect;
 
 
 import java.util.Arrays;
@@ -39,9 +39,9 @@ public class LoggingAspect {
     /**
      * Pointcut that matches all Spring beans in the application's main packages.
      */
-    @Pointcut("within(com.os.user..*)" +
-        " || within(com.os.user.service..*)" +
-        " || within(com.os.user.controller..*)")
+    @Pointcut("within(${package}..*)" +
+        " || within(${package}.service..*)" +
+        " || within(${package}.controller..*)")
     public void applicationPackagePointcut() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }

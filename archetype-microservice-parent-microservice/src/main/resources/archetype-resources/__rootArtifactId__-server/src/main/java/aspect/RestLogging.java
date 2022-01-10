@@ -1,4 +1,4 @@
-package com.os.user.aspect;
+package ${package}.aspect;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +30,7 @@ public class RestLogging {
 	@Autowired
 	private ObjectMapper mapper;
 
-	@Pointcut("within(com.os.user.controller..*) && @annotation(org.springframework.web.bind.annotation.RequestMapping)")
+	@Pointcut("within(${package}.controller..*) && @annotation(org.springframework.web.bind.annotation.RequestMapping)")
 	public void pointcut() {
 	}
 

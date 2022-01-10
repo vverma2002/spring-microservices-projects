@@ -1,4 +1,4 @@
-package com.os.user.aspect;
+package ${package}.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
