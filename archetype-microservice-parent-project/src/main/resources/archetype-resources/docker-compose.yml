@@ -1,0 +1,35 @@
+version: "3.9"  # optional since v1.27.0
+
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+#      - db-data:/var/lib/postgresql/data
+#      - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+#      - .:/code
+#      - logvolume01:/var/log      
+      - ./data/db-data:/var/lib/postgresql/data
+    networks:
+      - private-network
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080     
+    networks:
+      - private-network
+             
+volumes:
+#  db-data:
+  log-volume01: {}
+    
+networks:
+  private-network:
