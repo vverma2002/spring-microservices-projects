@@ -13,9 +13,4 @@ public class ${service-alias}ServerApplication {
 		SpringApplication.run(${service-alias}ServerApplication.class, args);
 	}
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
-
 }

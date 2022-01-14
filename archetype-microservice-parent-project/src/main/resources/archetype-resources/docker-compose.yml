@@ -1,8 +1,9 @@
 version: "3.9"  # optional since v1.27.0
 
 services:
-  db:
+  pg-db:
     image: postgres:14.1-alpine
+    container_name: postgres    
     restart: always
     environment:
       - POSTGRES_USER=postgres
@@ -11,25 +12,63 @@ services:
     ports:
       - '5432:5432'
     volumes: 
-#      - db-data:/var/lib/postgresql/data
-#      - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
-#      - .:/code
-#      - logvolume01:/var/log      
-      - ./data/db-data:/var/lib/postgresql/data
+     - pg-data:/var/lib/postgresql/data
     networks:
       - private-network
 
   adminer:
     image: adminer
+    container_name: adminer    
     restart: always
     ports:
       - 8080:8080     
     networks:
       - private-network
-             
+
+  zipkin-db:
+    image: openzipkin/zipkin-mysql
+    container_name: mysql
+    volumes:
+      - zipkin-data:/mysql/data
+    networks:
+      - private-network     
+    restart: unless-stopped
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+    ports:
+      - 9411:9411
+    depends_on:
+      - zipkin-db
+    networks:
+      - private-network    
+    restart: unless-stopped
+
+  zipkin-dependencies:
+    image: openzipkin/zipkin-dependencies
+    container_name: dependencies
+    entrypoint: crond -f
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+      - JAVA_OPTS=-verbose:gc -Xms512m -Xmx512m
+    depends_on:
+      - zipkin-db
+    networks:
+      - private-network      
+    restart: unless-stopped
+
 volumes:
-#  db-data:
-  log-volume01: {}
+  pg-data:
+  zipkin-data:
     
 networks:
   private-network:

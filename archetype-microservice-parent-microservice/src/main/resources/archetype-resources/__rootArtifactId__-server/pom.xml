@@ -18,7 +18,7 @@
 		<log4j2.version>2.17.1</log4j2.version> <!-- Log4J 2.17.1 contains a fix for CVE-2021-44832 -->
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
 		<spring-cloud.version>2021.0.0</spring-cloud.version>
-	</properties>	
+	</properties>
 
 	<profiles>
 		<profile>
@@ -37,6 +37,7 @@
 				<datasource.url.from.maven>jdbc:h2:file:./h2/userH2Db;MODE=PostgreSQL;DB_CLOSE_DELAY=-1</datasource.url.from.maven>
 				<datasource.username.from.maven>sa</datasource.username.from.maven>
 				<datasource.password.from.maven></datasource.password.from.maven>
+				<zipkin.base-url.from.maven>http://192.168.1.37:9411</zipkin.base-url.from.maven>				
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -73,9 +74,10 @@
 			<properties>
 				<spring.profile.from.maven>prod</spring.profile.from.maven>
 				<database.platform.from.maven>org.hibernate.dialect.PostgreSQL10Dialect</database.platform.from.maven>
-				<datasource.url.from.maven>jdbc:postgresql://192.168.1.72:5432/postgres</datasource.url.from.maven>
+				<datasource.url.from.maven>jdbc:postgresql://192.168.1.37:5432/postgres</datasource.url.from.maven>
 				<datasource.username.from.maven>postgres</datasource.username.from.maven>
 				<datasource.password.from.maven>postgres</datasource.password.from.maven>
+				<zipkin.base-url.from.maven>http://192.168.1.37:9411</zipkin.base-url.from.maven>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -91,7 +93,7 @@
 					<groupId>io.micrometer</groupId>
 					<artifactId>micrometer-registry-prometheus</artifactId>
 					<scope>runtime</scope>
-				</dependency>				
+				</dependency>
 			</dependencies>
 			<build>
 				<finalName>user-service-prod</finalName>
@@ -106,7 +108,7 @@
 			<artifactId>${rootArtifactId}-library</artifactId>
 			<version>${version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -140,13 +142,22 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-sleuth-zipkin</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -155,9 +166,17 @@
 
 	</dependencies>
 
-	<!-- <dependencyManagement> <dependencies> <dependency> <groupId>org.springframework.cloud</groupId> 
-		<artifactId>spring-cloud-dependencies</artifactId> <version>${spring-cloud.version}</version> 
-		<type>pom</type> <scope>import</scope> </dependency> </dependencies> </dependencyManagement> -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -194,7 +213,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 	</build>
 </project>

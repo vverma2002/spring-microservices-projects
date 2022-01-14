@@ -4,13 +4,20 @@
 		<Property name="LOG_PATTERN">
 			%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName}	--- [%15.15t] %-40.40c{1.} : %m%n%ex
 		</Property>
+		<Property name="LOG_PATTERN_V2">
+			%d %5p %40.40c:%4L - %m%n
+		</Property>
+		<Property name="LOG_PATTERN_ZIPKIN">
+			%d{ABSOLUTE} [%X{traceId}/%X{spanId}] %-5p [%t] %C{2} (%F:%L) - %m%n
+		</Property>
 	</Properties>
 	<Appenders>
 	
 		<!-- Console Appender -->	
 		<Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
 			<!-- <PatternLayout pattern="%style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" /> -->
-			<PatternLayout pattern="${LOG_PATTERN}" />
+			<!-- <PatternLayout pattern="${LOG_PATTERN}" /> -->
+			<PatternLayout pattern="${LOG_PATTERN_ZIPKIN}" />
 		</Console>
 		
 		<!-- Rolling File Appender -->
