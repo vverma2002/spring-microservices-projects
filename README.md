@@ -22,3 +22,8 @@ mvn archetype:generate -DgroupId=com.vik.archetype -DartifactId=spring-microsevi
 ```CMD
 mvn archetype:generate -DarchetypeGroupId=com.vik.archetype -DarchetypeArtifactId=spring-microsevice-project-archetype -DarchetypeVersion=0.0.1-SNAPSHOT  -DgroupId=com.vik.os  -DartifactId=online-shpping-app
 ```
+
+###### To generate Partial Archtype sourcecode into existing projects:
+```CMD
+mvn archetype:generate -DgroupId=com.ols -DartifactId=referenceProject -DarchetypeArtifactId=archetype-quarkus-rest-client-partial -DarchetypeGroupId=com.microservice.archetypes -DarchetypeVersion=1.0-SNAPSHOT
+```
