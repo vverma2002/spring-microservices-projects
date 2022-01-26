@@ -30,3 +30,6 @@ mvn archetype:generate -DgroupId={parent-group} -DartifactId={parent-service}  -
 ```CMD
 archetype:generate -DgroupId=com.vik -DartifactId=rnd-service  -DarchetypeArtifactId=archetype-quarkus-rest-client-partial -DarchetypeGroupId=com.microservice.archetypes -DarchetypeVersion=1.0-SNAPSHOT -Dpackage=com.vik.remote
 ```
+```CMD
+archetype:generate -DgroupId=com.vik -DartifactId=rnd-service  -DarchetypeArtifactId=archetype-quarkus-rest-client-partial -DarchetypeGroupId=com.microservice.archetypes -DarchetypeVersion=1.0-SNAPSHOT -Dpackage=com.vik.remote -Dclient-service=ExtensionV2 -Dclient-alias=extensionV2
+```
