@@ -25,5 +25,8 @@ mvn archetype:generate -DarchetypeGroupId=com.vik.archetype -DarchetypeArtifactI
 
 ###### To generate Partial Archtype sourcecode into existing projects:
 ```CMD
-mvn archetype:generate -DgroupId=com.ols -DartifactId=referenceProject -DarchetypeArtifactId=archetype-quarkus-rest-client-partial -DarchetypeGroupId=com.microservice.archetypes -DarchetypeVersion=1.0-SNAPSHOT
+mvn archetype:generate -DgroupId={parent-group} -DartifactId={parent-service}  -DarchetypeArtifactId=archetype-quarkus-rest-client-partial -DarchetypeGroupId=com.microservice.archetypes -DarchetypeVersion=1.0-SNAPSHOT -Dpackage=com.vik.remote
+```
+```CMD
+archetype:generate -DgroupId=com.vik -DartifactId=rnd-service  -DarchetypeArtifactId=archetype-quarkus-rest-client-partial -DarchetypeGroupId=com.microservice.archetypes -DarchetypeVersion=1.0-SNAPSHOT -Dpackage=com.vik.remote
 ```
